@@ -189,6 +189,14 @@
   transform: translateY(-2px);
 }
 
+.postCommentButton.cancelBtn {
+  background: #dc3545;
+}
+
+.postCommentButton.cancelBtn:hover {
+  background: #c82333;
+}
+
 .postCommentButton:disabled {
   background: #6c757d;
   cursor: not-allowed;

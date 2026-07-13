@@ -7,10 +7,12 @@ import {
   postComment,
   getCommentsByID,
   deleteComment,
+  updateComment,
 } from "../../api/internal";
 import Loader from "../../components/Loader/Loader";
 import styles from "./BlogDetails.module.css";
 import Comment from "../../components/Comment/Comment";
+import clsx from "clsx";
 
 function BlogDetails() {
   const [blog, setBlog] = useState(null);
@@ -21,12 +23,26 @@ function BlogDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [editComment, setEditComment] = useState({
+    edit: false,
+    commentId: "",
+    content: "",
+  });
+
   const navigate = useNavigate();
   const params = useParams();
   const blogId = params.id;
 
   const username = useSelector((state) => state.user.username);
   const userId = useSelector((state) => state.user._id);
+
+  const handleCancelEdit = () => {
+    setEditComment({
+      edit: false,
+      commentId: null,
+      content: null,
+    });
+  };
 
   const postCommentHandler = async () => {
     if (!newComment.trim()) {
@@ -90,6 +106,14 @@ function BlogDetails() {
     }
   };
 
+  const handleUpdateCommentClick = (commentId, content) => {
+    setEditComment({
+      edit: true,
+      commentId: commentId,
+      content: content,
+    });
+  };
+
   const handleDeleteComment = async (_id) => {
     if (!window.confirm("Are you sure you want to delete this comment?")) {
       return;
@@ -106,6 +130,25 @@ function BlogDetails() {
     } catch (err) {
       console.error("Delete error:", err);
       setError("Something went wrong while deleting blog");
+    }
+  };
+
+  const handleUpdateComment = async (id, content) => {
+    try {
+      const payload = {
+        content,
+      };
+      const response = await updateComment(id, payload);
+
+      if (response.status === 200) {
+        refreshComments();
+        handleCancelEdit();
+      } else {
+        setError("Failed to update comment");
+      }
+    } catch (err) {
+      console.error("Update error:", err);
+      setError("Something went wrong while updating comment");
     }
   };
 
@@ -217,29 +260,68 @@ function BlogDetails() {
                 <Comment
                   key={comment._id}
                   item={comment}
-                  onCommentUpdate={refreshComments}
-                  onCommentDelete={handleDeleteComment}
+                  onCommentUpdate={() =>
+                    handleUpdateCommentClick(comment._id, comment.content)
+                  }
+                  onCommentDelete={() => handleDeleteComment(comment._id)}
                 />
               ))
             )}
           </div>
 
-          <div className={styles.postComment}>
-            <textarea
-              className={styles.input}
-              placeholder="Write your comment here..."
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              rows="3"
-            />
-            <button
-              className={styles.postCommentButton}
-              onClick={postCommentHandler}
-              disabled={!newComment.trim()}
-            >
-              POST COMMENT
-            </button>
-          </div>
+          {editComment?.edit ? (
+            <div className={styles.postComment}>
+              <textarea
+                className={styles.input}
+                placeholder="Write your comment here..."
+                value={editComment.content}
+                onChange={(e) =>
+                  setEditComment({
+                    ...editComment,
+                    content: e.target.value,
+                  })
+                }
+                rows="3"
+              />
+              <div className="d-flex align-items-center gap-2">
+                <button
+                  className={styles.postCommentButton}
+                  onClick={() =>
+                    handleUpdateComment(
+                      editComment.commentId,
+                      editComment.content,
+                    )
+                  }
+                  disabled={!editComment.content.trim()}
+                >
+                  UPDATE COMMENT
+                </button>
+                <button
+                  className={clsx(styles.postCommentButton, styles.cancelBtn)}
+                  onClick={handleCancelEdit}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.postComment}>
+              <textarea
+                className={styles.input}
+                placeholder="Write your comment here..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                rows="3"
+              />
+              <button
+                className={styles.postCommentButton}
+                onClick={postCommentHandler}
+                disabled={!newComment.trim()}
+              >
+                POST COMMENT
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

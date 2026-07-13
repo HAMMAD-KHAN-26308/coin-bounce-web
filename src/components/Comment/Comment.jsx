@@ -12,7 +12,6 @@ function Comment({ item, onCommentUpdate, onCommentDelete }) {
 
   return (
     <div className={styles.comment}>
-      
       <div className={clsx(styles.header, "w-100")}>
         <div className="w-100 d-flex align-items-center justify-content-between gap-2">
           <div className={styles.author}>{item.authorUsername}</div>
@@ -20,10 +19,8 @@ function Comment({ item, onCommentUpdate, onCommentDelete }) {
             <Dropdown>
               <Dropdown.Toggle></Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item>Edit</Dropdown.Item>
-                <Dropdown.Item onClick={() => onCommentDelete(item._id)}>
-                  Delete
-                </Dropdown.Item>
+                <Dropdown.Item onClick={onCommentUpdate}>Edit</Dropdown.Item>
+                <Dropdown.Item onClick={onCommentDelete}>Delete</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           )}
