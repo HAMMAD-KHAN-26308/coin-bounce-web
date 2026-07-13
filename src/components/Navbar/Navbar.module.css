@@ -6,13 +6,18 @@
   margin: 20px auto;
   width: 80%;
 }
+
+.navbar a {
+  color: white;
+}
+
 .logo {
   font-size: 32px;
   font-weight: 800;
 }
 
 .activeStyle {
-  color: blue;
+  color: blue !important;
   font-size: 22px;
   font-weight: bold;
 }
@@ -71,13 +76,19 @@
   background-color: #e01822;
 }
 
-.separator{
+.separator {
   height: 1px;
   margin-top: 0px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    #7987c0,
-    transparent
-);
+  background: linear-gradient(to right, transparent, #7987c0, transparent);
+}
+.userPhoto {
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+  object-fit: center;
+}
+.profileName{
+  font-size: 20px;
+  margin-left: -30px;
+  margin-top: 10px;
 }

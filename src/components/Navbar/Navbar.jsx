@@ -7,11 +7,14 @@ import { resetUser } from "../../store/userSlice";
 function Navbar() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.auth);
+  const userPhoto = useSelector((state) => state.user.photoPath);
+  const name = useSelector((state) => state.user.name);
 
   const handleSignout = async () => {
     await signout();
     dispatch(resetUser());
   };
+
   return (
     <>
       <nav className={styles.navbar}>
@@ -84,9 +87,17 @@ function Navbar() {
             </NavLink>
           </div>
         )}
+
+        {isAuthenticated && userPhoto ? (
+          <img src={userPhoto} alt="User avatar" className={styles.userPhoto} />
+        ) : null}
+        {isAuthenticated && name ? (
+          <h1 className={styles.profileName}>{name}</h1>
+        ) : null}
       </nav>
       <div className={styles.separator}></div>
     </>
   );
 }
+
 export default Navbar;

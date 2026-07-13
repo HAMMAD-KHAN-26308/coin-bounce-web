@@ -14,6 +14,24 @@ function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  const [photo, setPhoto] = useState("");
+
+  const getPhoto = (e) => {
+    const file = e.target.files[0];
+
+    if (!file) {
+      setPhoto("");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const base64Photo = reader.result;
+      setPhoto(base64Photo);
+      setFieldValue("photo", base64Photo);
+    };
+  };
 
   const handleSignup = async () => {
     const data = {
@@ -22,6 +40,7 @@ function Signup() {
       password: values.password,
       confirmPassword: values.confirmPassword,
       email: values.email,
+      photo: values.photo,
     };
 
     const response = await signup(data);
@@ -33,6 +52,7 @@ function Signup() {
         email: response.data.user.email,
         username: response.data.user.username,
         auth: response.data.auth,
+        photo: response.data.user.photoPath,
       };
 
       dispatch(setUser(user));
@@ -43,16 +63,19 @@ function Signup() {
       setError(response.message);
     }
   };
-  const { values, touched, handleBlur, handleChange, errors } = useFormik({
-    initialValues: {
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: signupSchema,
-  });
+
+  const { values, touched, handleBlur, handleChange, errors, setFieldValue } =
+    useFormik({
+      initialValues: {
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        photo: "",
+      },
+      validationSchema: signupSchema,
+    });
 
   return (
     <div className={styles.signupWrapper}>
@@ -114,6 +137,18 @@ function Signup() {
         }
         errormessage={errors.confirmPassword}
       />
+
+      <div className={styles.photoPrompt}>
+        <p>Choose a photo</p>
+        <input
+          type="file"
+          name="photo"
+          id="photo"
+          accept="image/jpg, image/jpeg, image/png"
+          onChange={getPhoto}
+        />
+        {photo !== "" ? <img src={photo} alt="Preview" width={80} height={80} /> : ""}
+      </div>
 
       <button
         onClick={handleSignup}

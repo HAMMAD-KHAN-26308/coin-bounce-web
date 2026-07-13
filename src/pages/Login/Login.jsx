@@ -24,9 +24,12 @@ function Login() {
       const user = {
         _id: response.data.user._id,
         email: response.data.user.email,
+        name: response.data.user.name,
         username: response.data.user.username,
         auth: response.data.auth,
+        photoPath: response.data.user.photo,
       };
+      console.log("response.data", response.data);
       dispatch(setUser(user));
       // 2. redirect to homePage
       navigate("/");
