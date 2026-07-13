@@ -1,0 +1,50 @@
+import { useState, useEffect } from "react";
+import { getNews } from "../../api/external";
+import styles from "../Home/Home.module.css";
+import Loader from "../../components/Loader/Loader";
+
+function Home() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    (async function newsApiCall() {
+      const response = await getNews();
+      setArticles(response.articles || response || []);
+    })();
+
+    return () => {
+      setArticles([]);
+    };
+  }, []);
+
+  const handleCardClick = (url) => {
+    window.open(url, "_blank");
+  };
+
+  if (articles.length === 0) {
+    return
+    <Loader text="homepage" />;
+  }
+
+  return (
+    <>
+      <div className={styles.header}>Latest Articles</div>
+      <div className={styles.grid}>
+        {Array.isArray(articles) &&
+          articles.map((article, index) => (
+            <div
+              className={styles.card}
+              key={articles.url}
+              onClick={() => handleCardClick(article.url)}
+            >
+              {" "}
+              <img src={article.urlToImage} alt={article.title} />
+              <h3>{article.title}</h3>
+            </div>
+          ))}
+      </div>
+    </>
+  );
+}
+
+export default Home;
