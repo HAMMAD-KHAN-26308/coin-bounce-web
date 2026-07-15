@@ -8,10 +8,17 @@ function Comment({ item, onCommentUpdate, onCommentDelete }) {
 
   const userName = useSelector((state) => state.user.username);
 
+  const photoSrc =  item.authorPhotoPath || "/avatar-placeholder.jpg"
+
   const isAuthor = userName === item.authorUsername;
 
   return (
     <div className={styles.comment}>
+      <img
+        src={photoSrc}
+        alt="User avatar"
+        className={styles.userPhoto}
+      />
       <div className={clsx(styles.header, "w-100")}>
         <div className="w-100 d-flex align-items-center justify-content-between gap-2">
           <div className={styles.author}>{item.authorUsername}</div>

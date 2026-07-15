@@ -152,3 +152,29 @@ export const updateBlog = async (data) => {
 
   return response;
 };
+
+export const updateProfile = async (data) => {
+  let response;
+  try {
+    response = await api.put("/profile", data);
+    console.log("Profile update response:", response);
+  } catch (error) {
+    console.error("Update profile error:", error);
+    return error.response || error;
+  }
+
+  return response;
+};
+
+export const changePassword = async (data) => {
+  let response;
+  try {
+    response = await api.put("/password", data);
+    console.log("Password change response:", response);
+  } catch (error) {
+    console.error("Password change error:", error);
+    return error.response || error;
+  }
+
+  return response;
+};

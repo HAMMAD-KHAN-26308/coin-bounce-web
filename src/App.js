@@ -14,6 +14,7 @@ import Blog from "./pages/Blog/Blog";
 import SubmitBlog from "./pages/SubmitBlog/SubmitBlog";
 import BlogDetails from "./pages/BlogDetailes/BlogDetails";
 import UpdateBlog from "./pages/UpdateBlog/UpdateBlog";
+import Profile from "./pages/profile/profile";
 
 function App() {
   const isAuth = useSelector((state) => state.user.auth);
@@ -102,6 +103,15 @@ function App() {
               element={
                 <div className={styles.main}>
                   <Signup />
+                </div>
+              }
+            />
+            <Route
+              path="/profile"
+              exact
+              element={
+                <div className={styles.main}>
+                  <Profile />
                 </div>
               }
             />

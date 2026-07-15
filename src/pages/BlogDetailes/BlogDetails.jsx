@@ -33,7 +33,7 @@ function BlogDetails() {
   const params = useParams();
   const blogId = params.id;
 
-  const username = useSelector((state) => state.user.username);
+  const name = useSelector((state) => state.user.username);
   const userId = useSelector((state) => state.user._id);
 
   const handleCancelEdit = () => {
@@ -173,7 +173,7 @@ function BlogDetails() {
           const blogData = blogResponse.data.blog || blogResponse.data;
           setBlog(blogData);
 
-          setOwnsBlog(username === blogData.authorUsername);
+          setOwnsBlog(name === blogData.authorUsername);
         } else {
           setError("Blog not found");
         }
@@ -186,7 +186,7 @@ function BlogDetails() {
     }
 
     getBlogDetails();
-  }, [blogId, reload, username]);
+  }, [blogId, reload, name]);
 
   if (loading) {
     return <Loader text="Blog details" />;

@@ -23,3 +23,8 @@
   padding: 5px 0;
   color: #c4c5c5;
 }
+.userPhoto{
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+}

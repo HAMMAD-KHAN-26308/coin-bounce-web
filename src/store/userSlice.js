@@ -5,6 +5,7 @@ const initialState = {
   email: "",
   name: "",
   username: "",
+  password: "",
   photoPath: "",
   auth: false,
 };
@@ -14,18 +15,26 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { _id, email, name, username, auth, photoPath } = action.payload;
+      const { _id, email, password, name, username, auth, photoPath } =
+        action.payload;
       state._id = _id;
       state.email = email;
       state.name = name;
       state.username = username;
+      state.password = password;
       state.auth = auth;
       state.photoPath = photoPath;
+    },
+    updateUser: (state, action) => {
+      if (action.payload.name) state.name = action.payload.name;
+      if (action.payload.email) state.email = action.payload.email;
+      if (action.payload.photoPath) state.photoPath = action.payload.photoPath;
     },
     resetUser: (state) => {
       state._id = "";
       state.email = "";
       state.name = "";
+  
       state.username = "";
       state.auth = false;
       state.photoPath = "";
@@ -33,6 +42,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, resetUser } = userSlice.actions;
+export const { setUser, updateUser, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;

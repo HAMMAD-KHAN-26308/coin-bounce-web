@@ -1,18 +1,23 @@
+import Dropdown from "react-bootstrap/Dropdown";
 import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../../api/internal";
 import { resetUser } from "../../store/userSlice";
+import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.auth);
   const userPhoto = useSelector((state) => state.user.photoPath);
   const name = useSelector((state) => state.user.name);
+  const navigate = useNavigate();
 
   const handleSignout = async () => {
     await signout();
     dispatch(resetUser());
+    navigate("/");
   };
 
   return (
@@ -21,7 +26,6 @@ function Navbar() {
         <NavLink to="/" className={`${styles.logo} ${styles.inActiveStyle}`}>
           CoinBounce
         </NavLink>
-
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -30,7 +34,6 @@ function Navbar() {
         >
           Home
         </NavLink>
-
         <NavLink
           to="/crypto"
           className={({ isActive }) =>
@@ -39,7 +42,6 @@ function Navbar() {
         >
           Cryptocurrencies
         </NavLink>
-
         <NavLink
           to="/blogs"
           className={({ isActive }) =>
@@ -48,7 +50,6 @@ function Navbar() {
         >
           Blog
         </NavLink>
-
         <NavLink
           to="/submit"
           className={({ isActive }) =>
@@ -57,15 +58,38 @@ function Navbar() {
         >
           Submit a blog
         </NavLink>
-
         {isAuthenticated ? (
-          <div>
-            <NavLink>
-              <button className={styles.signOutButton} onClick={handleSignout}>
+          <Dropdown align="end">
+            <Dropdown.Toggle as="button" className={styles.profileButton}>
+              <img src={userPhoto} alt="User" className={styles.userPhoto} />
+
+              <div className={styles.userInfo}>
+                <span className={styles.profileName}>{name}</span>
+              </div>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu className={styles.dropdownMenu}>
+              <Dropdown.Item href="/profile" className={styles.dropdownItem}>
+                <FaUser className={styles.icon} />
+                My Profile
+              </Dropdown.Item>
+
+              <Dropdown.Item href="/settings" className={styles.dropdownItem}>
+                <FaCog className={styles.icon} />
+                Settings
+              </Dropdown.Item>
+
+              <Dropdown.Divider />
+
+              <Dropdown.Item
+                onClick={handleSignout}
+                className={styles.dropdownItem}
+              >
+                <FaSignOutAlt className={styles.icon} />
                 Sign Out
-              </button>
-            </NavLink>
-          </div>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         ) : (
           <div>
             <NavLink
@@ -87,14 +111,8 @@ function Navbar() {
             </NavLink>
           </div>
         )}
-
-        {isAuthenticated && userPhoto ? (
-          <img src={userPhoto} alt="User avatar" className={styles.userPhoto} />
-        ) : null}
-        {isAuthenticated && name ? (
-          <h1 className={styles.profileName}>{name}</h1>
-        ) : null}
       </nav>
+
       <div className={styles.separator}></div>
     </>
   );
