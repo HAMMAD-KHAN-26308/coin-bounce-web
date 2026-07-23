@@ -23,75 +23,81 @@ function Navbar() {
   return (
     <>
       <nav className={styles.navbar}>
-        <NavLink to="/" className={`${styles.logo} ${styles.inActiveStyle}`}>
-          CoinBounce
-        </NavLink>
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive ? styles.activeStyle : styles.inActiveStyle
-          }
-        >
-          Home
-        </NavLink>
-        <NavLink
-          to="/crypto"
-          className={({ isActive }) =>
-            isActive ? styles.activeStyle : styles.inActiveStyle
-          }
-        >
-          Cryptocurrencies
-        </NavLink>
-        <NavLink
-          to="/blogs"
-          className={({ isActive }) =>
-            isActive ? styles.activeStyle : styles.inActiveStyle
-          }
-        >
-          Blog
-        </NavLink>
-        <NavLink
-          to="/submit"
-          className={({ isActive }) =>
-            isActive ? styles.activeStyle : styles.inActiveStyle
-          }
-        >
-          Submit a blog
-        </NavLink>
+        <div className={styles.logo}>
+          <NavLink to="/" className={`${styles.logo} ${styles.inActiveStyle}`}>
+            CoinBounce
+          </NavLink>
+        </div>
+        <div className={styles.nav_main}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? styles.activeStyle : styles.inActiveStyle
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/crypto"
+            className={({ isActive }) =>
+              isActive ? styles.activeStyle : styles.inActiveStyle
+            }
+          >
+            Cryptocurrencies
+          </NavLink>
+          <NavLink
+            to="/blogs"
+            className={({ isActive }) =>
+              isActive ? styles.activeStyle : styles.inActiveStyle
+            }
+          >
+            Blog
+          </NavLink>
+          <NavLink
+            to="/submit"
+            className={({ isActive }) =>
+              isActive ? styles.activeStyle : styles.inActiveStyle
+            }
+          >
+            Submit a blog
+          </NavLink>
+        </div>
         {isAuthenticated ? (
-          <Dropdown align="end">
-            <Dropdown.Toggle as="button" className={styles.profileButton}>
-              <img src={userPhoto} alt="User" className={styles.userPhoto} />
+          <div className={styles.profile}>
+            <Dropdown align="end">
+              <Dropdown.Toggle as="button" className={styles.profileButton}>
+                <img src={userPhoto} alt="User" className={styles.userPhoto} />
 
-              <div className={styles.userInfo}>
-                <span className={styles.profileName}>{name}</span>
-              </div>
-            </Dropdown.Toggle>
+                <div className={styles.userInfo}>
+                  <span className={styles.profileName}>{name}</span>
+                </div>
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu className={styles.dropdownMenu}>
-              <Dropdown.Item href="/profile" className={styles.dropdownItem}>
-                <FaUser className={styles.icon} />
-                My Profile
-              </Dropdown.Item>
+              <Dropdown.Menu className={styles.dropdownMenu}>
+                <Dropdown.Item href="/profile" className={styles.dropdownItem}>
+                  <FaUser className={styles.icon} />
+                  My Profile
+                </Dropdown.Item>
 
-              <Dropdown.Item href="/settings" className={styles.dropdownItem}>
-                <FaCog className={styles.icon} />
-                Settings
-              </Dropdown.Item>
+                <Dropdown.Item href="/settings" className={styles.dropdownItem}>
+                  <FaCog className={styles.icon} />
+                  Settings
+                </Dropdown.Item>
 
-              <Dropdown.Divider />
+                <Dropdown.Divider />
 
-              <Dropdown.Item
-                onClick={handleSignout}
-                className={styles.dropdownItem}
-              >
-                <FaSignOutAlt className={styles.icon} />
-                Sign Out
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                <Dropdown.Item
+                  onClick={handleSignout}
+                  className={styles.dropdownItem}
+                >
+                  <FaSignOutAlt className={styles.icon} />
+                  Sign Out
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         ) : (
-          <div>
+          <div className={styles.profile}>
             <NavLink
               to="/login"
               className={({ isActive }) =>

@@ -68,6 +68,14 @@ function Login() {
         error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
       />
+      <span>
+        <button
+          className={styles.createAccount}
+          onClick={() => navigate("/forgot-password")}
+        >
+          Forgot Password
+        </button>
+      </span>
       <button
         className={styles.logInButton}
         onClick={handleLogin}

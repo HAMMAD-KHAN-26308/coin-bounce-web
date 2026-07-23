@@ -15,6 +15,8 @@ import SubmitBlog from "./pages/SubmitBlog/SubmitBlog";
 import BlogDetails from "./pages/BlogDetailes/BlogDetails";
 import UpdateBlog from "./pages/UpdateBlog/UpdateBlog";
 import Profile from "./pages/profile/profile";
+import ForgotPassword from './pages/forgetpassword/forgetpassword';
+import ResetPassword from './pages/resetPassword/reset';
 
 function App() {
   const isAuth = useSelector((state) => state.user.auth);
@@ -34,6 +36,7 @@ function App() {
                 </div>
               }
             />
+
             <Route
               path="/crypto"
               exact
@@ -106,6 +109,8 @@ function App() {
                 </div>
               }
             />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route
               path="/profile"
               exact
@@ -115,6 +120,7 @@ function App() {
                 </div>
               }
             />
+
             <Route
               path="*"
               element={
@@ -124,6 +130,7 @@ function App() {
               }
             />
           </Routes>
+
           <Footer />
         </div>
       </BrowserRouter>

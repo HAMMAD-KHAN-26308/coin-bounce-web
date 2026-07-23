@@ -1,10 +1,14 @@
+:root {
+  --primary-color: #b486b3;
+  --secondry-color:#964eb4;
+}
+
 .navbar {
+  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
-  margin: 20px auto;
-  width: 80%;
+  padding: 15px;
 }
 
 .navbar a {
@@ -12,19 +16,27 @@
 }
 
 .logo {
-  font-size: 32px;
+  font-size: 24px !important;
   font-weight: 800;
+  background-color: var(--primary-color);
+
+}
+.nav_main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
 
 .activeStyle {
   color: blue !important;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: bolder;
 }
 
 .inActiveStyle {
   text-decoration: none;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: normal;
 }
 
@@ -32,10 +44,10 @@
   border: none;
   outline: none;
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 5px 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: large;
+  font-size: 13px;
   text-decoration: none;
 }
 
@@ -51,10 +63,10 @@
   border: none;
   outline: none;
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 5px 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: large;
+  font-size: 13px;
 }
 .signUpButton:hover {
   background-color: rgba(0, 0, 255, 0.589);
@@ -81,17 +93,6 @@
   margin-top: 0px;
   background: linear-gradient(to right, transparent, #7987c0, transparent);
 }
-.userPhoto {
-  width: 50px;
-  height: 50px;
-  border-radius: 999px;
-  object-fit: center;
-}
-.profileName {
-  font-size: 20px;
-  margin-left: -30px;
-  margin-top: 10px;
-}
 
 .profileButton {
   display: flex;
@@ -100,7 +101,7 @@
   border: none;
   background: #3a3b3b;
   color: white;
-  padding: 8px 14px;
+  padding: 6px 10px;
   border-radius: 50px;
   transition: 0.3s;
 }
@@ -110,7 +111,7 @@
 }
 
 .profileButton::after {
-  margin-left: 10px;
+  margin-left: 2px;
 }
 
 .userPhoto {
@@ -133,24 +134,24 @@
   margin: 0;
   color: white;
   background-color: #3a3b3b;
+  font-size: 12px !important;
 }
 
 .dropdownMenu {
-  min-width: 145px;
+  min-width: 30px;
   border-radius: 12px;
-  border: none;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  padding: 8px;
+  padding: 10px;
   background-color: #3a3b3b;
 }
 
 .dropdownMenu .dropdownItem {
   display: flex;
   align-items: center;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 7px;
   transition: 0.2s;
-  gap: 20px;
+  gap: 12px;
+  font-size: 15px;
 }
 
 .dropdownMenu .dropdown-item:hover {
@@ -158,6 +159,6 @@
 }
 
 .icon {
-  font-size: 18px;
+  font-size: 13px;
   background-color: #3a3b3b;
 }

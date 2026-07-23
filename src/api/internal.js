@@ -178,3 +178,27 @@ export const changePassword = async (data) => {
 
   return response;
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    return await api.post("/forgot-password", { email });
+  } catch (error) {
+    return parseError(error);
+  }
+};
+
+export const verifyResetToken = async (token) => {
+  try {
+    return await api.post("/verify-reset-token", { token });
+  } catch (error) {
+    return parseError(error);
+  }
+};
+
+export const resetPassword = async (payload) => {
+  try {
+    return await api.post("/reset-password", payload);
+  } catch (error) {
+    return parseError(error);
+  }
+};
